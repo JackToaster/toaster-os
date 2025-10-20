@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bei4fdqui7b33"]
+
+[node name="labeled slider" type="HBoxContainer"]
+offset_left = 3.0
+offset_top = 117.0
+offset_right = 237.0
+offset_bottom = 140.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "param1"
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4

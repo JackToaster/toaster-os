@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://kwt3pj8s3s7x"]
+
+[ext_resource type="Script" uid="uid://daubqxgcj0h0h" path="res://scenes/face-test.gd" id="1_3alo4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_r6toc"]
+
+[node name="Face" type="MeshInstance3D"]
+mesh = SubResource("SphereMesh_r6toc")
+skeleton = NodePath("../..")
+script = ExtResource("1_3alo4")

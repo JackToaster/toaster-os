@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8kjavcahcv7l"]
+
+[ext_resource type="PackedScene" uid="uid://ddu2xniyit3y8" path="res://scenes/head.tscn" id="1_j01g0"]
+[ext_resource type="Script" uid="uid://saa2v21rpyvb" path="res://scenes/head_render.gd" id="1_lsk7b"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_j01g0"]
+viewport_path = NodePath("Head/Left")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lsk7b"]
+viewport_path = NodePath("Head/Right")
+
+[node name="HeadRender" type="Node2D"]
+script = ExtResource("1_lsk7b")
+
+[node name="left-sprite" type="Sprite2D" parent="."]
+texture = SubResource("ViewportTexture_j01g0")
+centered = false
+
+[node name="right-sprite" type="Sprite2D" parent="."]
+position = Vector2(64, 0)
+texture = SubResource("ViewportTexture_lsk7b")
+centered = false
+
+[node name="Head" parent="." instance=ExtResource("1_j01g0")]
+
+[editable path="Head"]

@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddu2xniyit3y8"]
+
+[ext_resource type="PackedScene" uid="uid://kwt3pj8s3s7x" path="res://scenes/face.tscn" id="1_d75dd"]
+[ext_resource type="Environment" uid="uid://cqnh48mx0dcep" path="res://scenes/head-cam-env.tres" id="1_nsfte"]
+
+[node name="Head" type="Node3D"]
+editor_description = "Base 3d scene for head rendering, includes cameras aligned to the physical head"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Content" type="Node3D" parent="."]
+editor_description = "Contains the 3d objects to be rendered, such as a face or visualizer"
+
+[node name="Face" parent="Content" instance=ExtResource("1_d75dd")]
+
+[node name="Left" type="SubViewport" parent="."]
+size = Vector2i(64, 32)
+
+[node name="Camera3D" type="Camera3D" parent="Left"]
+transform = Transform3D(0.29397362, 0, -0.9558135, 0, 1, 0, 0.9558135, 0, 0.29397362, -2.452991, 1.1920929e-07, 0.7688986)
+keep_aspect = 0
+environment = ExtResource("1_nsfte")
+projection = 1
+current = true
+size = 1.1207238
+near = 2.0
+far = 4.0
+
+[node name="Right" type="SubViewport" parent="."]
+size = Vector2i(64, 32)
+
+[node name="Camera3D2" type="Camera3D" parent="Right"]
+transform = Transform3D(0.2940403, 0, 0.955793, 0, 1, 0, -0.955793, 0, 0.2940403, 2.453, 0, 0.769)
+keep_aspect = 0
+environment = ExtResource("1_nsfte")
+projection = 1
+current = true
+size = 1.1207238
+near = 2.0
+far = 4.0
