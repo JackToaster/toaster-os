@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://crndl6etbsear"]
+
+[ext_resource type="Script" uid="uid://c2o4pu81vok52" path="res://scenes/camera_feed.gd" id="1_p5t0x"]
+
+[sub_resource type="CameraTexture" id="CameraTexture_j287u"]
+
+[node name="CameraFeed" type="Sprite2D"]
+scale = Vector2(0.56249994, 0.13333333)
+texture = SubResource("CameraTexture_j287u")
+centered = false
+script = ExtResource("1_p5t0x")
+camera_name = "mouth"

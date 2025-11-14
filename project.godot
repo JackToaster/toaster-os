@@ -15,13 +15,22 @@ run/main_scene="uid://bsxli57yhsgf3"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+OscServer="*res://addons/godOSC/scripts/OSCServer.gd"
+OscClient="*res://addons/godOSC/scripts/OSCClient.gd"
+
 [display]
 
 window/size/viewport_width=240
-window/size/viewport_height=272
+window/size/viewport_height=240
 window/size/initial_position_type=0
 window/size/resizable=false
 window/size/borderless=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godOSC/plugin.cfg")
 
 [rendering]
 

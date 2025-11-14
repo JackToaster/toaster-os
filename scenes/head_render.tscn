@@ -23,4 +23,13 @@ centered = false
 
 [node name="Head" parent="." instance=ExtResource("1_j01g0")]
 
+[node name="DirectionalLight3D" parent="Head" index="0"]
+visible = true
+
+[node name="Left" parent="Head" index="2"]
+msaa_3d = 2
+
+[node name="Right" parent="Head" index="3"]
+msaa_3d = 2
+
 [editable path="Head"]
