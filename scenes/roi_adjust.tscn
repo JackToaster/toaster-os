@@ -1,0 +1,250 @@
+[gd_scene load_steps=3 format=3 uid="uid://cegdm7w3rlc7b"]
+
+[ext_resource type="Theme" uid="uid://tmjagednd5mo" path="res://theme/waste_no_space/waste_no_space.tres" id="1_khusb"]
+[ext_resource type="Script" uid="uid://dvok7eruuvcw5" path="res://scenes/roi_adjust.gd" id="1_lm3i5"]
+
+[node name="RoiAdjust" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 38.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_khusb")
+script = ExtResource("1_lm3i5")
+
+[node name="adjust frame" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 53.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImageRef" type="ReferenceRect" parent="adjust frame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+border_width = 2.0
+editor_only = false
+
+[node name="MouthRoiRef" type="ReferenceRect" parent="adjust frame/ImageRef"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(0.057667002, 0.52384335, 1, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="Label" type="Label" parent="adjust frame/ImageRef/MouthRoiRef"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.5
+offset_top = -4.5
+offset_right = 20.5
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "MOUTH ROI"
+
+[node name="LeftEyeRoiRef" type="ReferenceRect" parent="adjust frame/ImageRef"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 6.0
+offset_right = -81.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(0.057667002, 0.52384335, 1, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="Label" type="Label" parent="adjust frame/ImageRef/LeftEyeRoiRef"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -9.5
+offset_top = -14.5
+offset_right = 9.5
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "LEFT
+EYE
+ROI"
+horizontal_alignment = 1
+
+[node name="RightEyeRoiRef" type="ReferenceRect" parent="adjust frame/ImageRef"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 78.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(0.057667002, 0.52384335, 1, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="Label" type="Label" parent="adjust frame/ImageRef/RightEyeRoiRef"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = -14.5
+offset_right = 11.0
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "RIGHT
+EYE
+ROI"
+horizontal_alignment = 1
+
+[node name="Top" type="Control" parent="adjust frame"]
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 1.0
+offset_right = 180.0
+offset_bottom = 20.0
+
+[node name="Plus" type="Button" parent="adjust frame/Top"]
+layout_mode = 0
+offset_right = 65.0
+offset_bottom = 18.0
+text = "+ + +"
+
+[node name="Minus" type="Button" parent="adjust frame/Top"]
+layout_mode = 0
+offset_left = 77.0
+offset_right = 142.0
+offset_bottom = 18.0
+text = "- - -"
+
+[node name="Left" type="Control" parent="adjust frame"]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 180.0
+offset_right = 161.0
+offset_bottom = 199.0
+rotation = -1.5707964
+
+[node name="Plus" type="Button" parent="adjust frame/Left"]
+layout_mode = 0
+offset_right = 65.0
+offset_bottom = 18.0
+text = "+ + +"
+
+[node name="Minus" type="Button" parent="adjust frame/Left"]
+layout_mode = 0
+offset_left = 94.0
+offset_right = 159.0
+offset_bottom = 18.0
+text = "- - -"
+
+[node name="Right" type="Control" parent="adjust frame"]
+anchors_preset = 0
+offset_left = 199.0
+offset_top = 20.0
+offset_right = 359.0
+offset_bottom = 39.0
+rotation = 1.5707964
+
+[node name="Plus" type="Button" parent="adjust frame/Right"]
+layout_mode = 0
+offset_top = 17.0
+offset_right = 65.0
+offset_bottom = 35.0
+text = "+ + +"
+
+[node name="Minus" type="Button" parent="adjust frame/Right"]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 17.0
+offset_right = 159.0
+offset_bottom = 35.0
+text = "- - -"
+
+[node name="Bottom" type="Control" parent="adjust frame"]
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 181.0
+offset_right = 180.0
+offset_bottom = 200.0
+
+[node name="Plus" type="Button" parent="adjust frame/Bottom"]
+layout_mode = 0
+offset_right = 65.0
+offset_bottom = 18.0
+text = "+ + +"
+
+[node name="Minus" type="Button" parent="adjust frame/Bottom"]
+layout_mode = 0
+offset_left = 77.0
+offset_right = 142.0
+offset_bottom = 18.0
+text = "- - -"
+
+[node name="Selector" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 51.0
+offset_bottom = 201.0
+
+[node name="Right Eye" type="CheckButton" parent="Selector"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 60.0
+offset_right = 50.0
+offset_bottom = 88.0
+button_pressed = true
+text = "RIGHT
+EYE"
+
+[node name="Left Eye" type="CheckButton" parent="Selector"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 90.0
+offset_right = 50.0
+offset_bottom = 118.0
+text = "LEFT
+EYE"
+
+[node name="Mouth" type="CheckButton" parent="Selector"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 120.0
+offset_right = 50.0
+offset_bottom = 138.0
+text = "MOUTH"
