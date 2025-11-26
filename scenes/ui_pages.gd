@@ -1,7 +1,7 @@
 extends Control
 
-var pages := []        # Array to store page nodes
-var current_page := 0  # Index of active page
+var pages: Array[Control] = [] # Array to store page nodes
+var current_page = 0 # Index of active page
 
 func _ready():
 	# Get all direct children that are Control nodes (your pages)
@@ -15,7 +15,12 @@ func _ready():
 
 func _update_pages():
 	for i in range(pages.size()):
-		pages[i].visible = (i == current_page)
+		var enable = i == current_page
+		pages[i].visible = enable
+		if enable:
+			pages[i].process_mode = Node.PROCESS_MODE_INHERIT
+		else:
+			pages[i].process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func _on_next_btn_pressed():

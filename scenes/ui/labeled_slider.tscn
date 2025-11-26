@@ -1,10 +1,13 @@
-[gd_scene format=3 uid="uid://bei4fdqui7b33"]
+[gd_scene load_steps=2 format=3 uid="uid://bei4fdqui7b33"]
+
+[ext_resource type="Script" uid="uid://d0fw6v6xekt8w" path="res://scenes/ui/labeled_slider.gd" id="1_3jnve"]
 
 [node name="labeled slider" type="HBoxContainer"]
 offset_left = 3.0
 offset_top = 117.0
 offset_right = 237.0
 offset_bottom = 140.0
+script = ExtResource("1_3jnve")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
