@@ -8,6 +8,12 @@ extends Node3D
 @onready var funnel_id = $face.find_blend_shape_by_name("mouth funnel")
 
 
+@onready var tongue_out_id = $Tongue.find_blend_shape_by_name("out")
+
+func _ready():
+	# copy face mesh to opposite face side
+	$faceL.mesh = $face.mesh
+
 func _process(_delta: float) -> void:
 	var t = Time.get_ticks_msec() / 1000.0
 	
@@ -16,7 +22,7 @@ func _process(_delta: float) -> void:
 	$faceL.position.y = 0.0003 * sin(t)
 	
 	#
-	# SMILE (already working)
+	# SMILE
 	#
 	var smile_right = OscServer.incoming_messages.get("/mouthSmileRight", [0])[0]
 	var smile_left = OscServer.incoming_messages.get("/mouthSmileLeft", [0])[0]
@@ -69,3 +75,17 @@ func _process(_delta: float) -> void:
 	var funnel = OscServer.incoming_messages.get("/mouthFunnel", [0])[0]
 	$face.set_blend_shape_value(funnel_id, funnel)
 	$faceL.set_blend_shape_value(funnel_id, funnel)
+
+	# 
+	# TONGUE STUFF
+	#
+	
+	var tongue_out = OscServer.incoming_messages.get("/tongueOut", [0])[0]
+	
+	var tongue_left = OscServer.incoming_messages.get("/tongueLeft", [0])[0]
+	var tongue_right = OscServer.incoming_messages.get("/tongueRight", [0])[0]
+	
+	var tongue_blendspace = tongue_out * (tongue_left - tongue_right)
+	
+	$AnimationPlayer/AnimationTree.set("parameters/blend_position", tongue_blendspace)
+	$Tongue.set_blend_shape_value(tongue_out_id, tongue_out)

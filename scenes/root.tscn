@@ -41,11 +41,11 @@ border_width = 2.0
 editor_only = false
 
 [node name="Label2" type="Label" parent="GUI/Header_Preview"]
-modulate = Color(0.34901962, 1, 0.34117648, 1)
 layout_mode = 0
 offset_left = 2.0
-offset_right = 137.0
-offset_bottom = 43.0
+offset_right = 56.0
+offset_bottom = 9.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
 text = "Face preview"
 
 [node name="FPSLabel" type="Label" parent="GUI/Header_Preview"]

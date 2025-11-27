@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_g65er")
 script = ExtResource("2_k2wpu")
-osc_parameters = Array[String](["/mouthSmileRight", "/mouthFrownRight", "/mouthSmileLeft", "/mouthFrownLeft", "/jawOpen", "/mouthClose", "/jawForward", "/mouthPucker", "/mouthFunnel"])
+osc_parameters = Array[String](["/mouthSmileRight", "/mouthFrownRight", "/mouthSmileLeft", "/mouthFrownLeft", "/jawOpen", "/mouthClose", "/jawForward", "/mouthPucker", "/mouthFunnel", "/tongueOut", "/tongueLeft", "/tongueRight", "/tongueUp", "/tongueDown"])
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
