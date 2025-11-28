@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://csxusqhrbvcss"]
+
+[ext_resource type="Script" uid="uid://gj5m12nvqcab" path="res://scenes/audio_visualizer.gd" id="1_ex645"]
+[ext_resource type="Material" uid="uid://2l55jhwu2gvl" path="res://material/canvas-blend-add.tres" id="1_mfr5m"]
+
+[sub_resource type="Curve" id="Curve_mfr5m"]
+_data = [Vector2(0, 0.24933547), 0.0, 3.5848775, 0, 0, Vector2(0.48414373, 1), 0.0, 0.0, 0, 0, Vector2(0.75687104, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_mfr5m"]
+offsets = PackedFloat32Array(0, 0.14482759, 0.29425287, 0.4275862, 0.55172414, 0.8183908, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.19964805, 4.987549e-06, 0.15537435, 1, 0.24246934, 0.00069236086, 0.43971413, 1, 0.21365008, 0.3054563, 0.61071354, 1, 0.1495752, 0.32227024, 0.3898225, 1, 0.079663165, 0.61660874, 0.6135576, 1, 0.38928655, 0.38928664, 0.3892865, 1)
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_ex645"]
+
+[node name="AudioVisualizer" type="Node2D" node_paths=PackedStringArray("audio_player")]
+material = ExtResource("1_mfr5m")
+script = ExtResource("1_ex645")
+audio_player = NodePath("AudioStreamPlayer")
+NUM_BARS = 64
+bar_envelope = SubResource("Curve_mfr5m")
+color_gradient = SubResource("Gradient_mfr5m")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMicrophone_ex645")
+mix_target = 2
+bus = &"microphone"
+
+[node name="BarRoot" type="Node2D" parent="."]
+position = Vector2(64, 32)

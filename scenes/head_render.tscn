@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8kjavcahcv7l"]
+[gd_scene load_steps=6 format=3 uid="uid://c8kjavcahcv7l"]
 
 [ext_resource type="PackedScene" uid="uid://ddu2xniyit3y8" path="res://scenes/head.tscn" id="1_j01g0"]
 [ext_resource type="Script" uid="uid://saa2v21rpyvb" path="res://scenes/head_render.gd" id="1_lsk7b"]
+[ext_resource type="Material" uid="uid://2l55jhwu2gvl" path="res://material/canvas-blend-add.tres" id="2_l3ilo"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_j01g0"]
 viewport_path = NodePath("Head/Left")
@@ -10,13 +11,21 @@ viewport_path = NodePath("Head/Left")
 viewport_path = NodePath("Head/Right")
 
 [node name="HeadRender" type="Node2D"]
+editor_description = "2D Set of sprites which renders the face as it will be shown on the display panels."
 script = ExtResource("1_lsk7b")
 
+[node name="background" type="Polygon2D" parent="."]
+z_index = -99
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 128, 0, 128, 32, 0, 32)
+
 [node name="left-sprite" type="Sprite2D" parent="."]
+material = ExtResource("2_l3ilo")
 texture = SubResource("ViewportTexture_j01g0")
 centered = false
 
 [node name="right-sprite" type="Sprite2D" parent="."]
+material = ExtResource("2_l3ilo")
 position = Vector2(64, 0)
 texture = SubResource("ViewportTexture_lsk7b")
 centered = false

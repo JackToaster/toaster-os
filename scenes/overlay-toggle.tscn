@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwokiauswa6hp"]
+
+[ext_resource type="Script" uid="uid://bkiqtkbetltk3" path="res://scenes/overlay_toggle.gd" id="1_m21e6"]
+
+[node name="OverlayToggle" type="CheckButton" groups=["OverlayToggle"]]
+text = "BSOD"
+script = ExtResource("1_m21e6")

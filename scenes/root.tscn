@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsxli57yhsgf3"]
+[gd_scene load_steps=14 format=3 uid="uid://bsxli57yhsgf3"]
 
 [ext_resource type="PackedScene" uid="uid://c8kjavcahcv7l" path="res://scenes/head_render.tscn" id="1_j5px3"]
 [ext_resource type="Script" uid="uid://dt31kliyqy4sv" path="res://scenes/root.gd" id="1_kycxp"]
@@ -8,6 +8,11 @@
 [ext_resource type="Script" uid="uid://crqx1ee8mp0rt" path="res://scenes/ui_pages.gd" id="4_j287u"]
 [ext_resource type="PackedScene" uid="uid://cegdm7w3rlc7b" path="res://scenes/roi_adjust.tscn" id="5_j287u"]
 [ext_resource type="PackedScene" uid="uid://4oo2kubc6ss6" path="res://scenes/tracking_params.tscn" id="6_j287u"]
+[ext_resource type="Script" uid="uid://srfftajttwe1" path="res://scenes/modes.gd" id="8_3hfy5"]
+[ext_resource type="PackedScene" uid="uid://bwokiauswa6hp" path="res://scenes/overlay-toggle.tscn" id="9_7pvxh"]
+[ext_resource type="Texture2D" uid="uid://d13ug4s8nbd3r" path="res://images/uwu.png" id="9_xsp7o"]
+[ext_resource type="Script" uid="uid://dim5tqo2mevgd" path="res://scenes/text_container.gd" id="10_l5cgh"]
+[ext_resource type="Texture2D" uid="uid://30c8bbxrkm3x" path="res://images/bsod.png" id="10_y3xxt"]
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_kycxp")
@@ -31,6 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HeadFrame" type="ReferenceRect" parent="GUI/Header_Preview"]
+z_index = -100
 layout_mode = 0
 offset_left = 58.0
 offset_top = 1.0
@@ -100,7 +106,77 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_j287u")
 
+[node name="Modes" type="Control" parent="GUI/Pages"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_3hfy5")
+
+[node name="ButtonContainer" type="VBoxContainer" parent="GUI/Pages/Modes"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -9.0
+offset_right = 48.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Face" type="CheckButton" parent="GUI/Pages/Modes/ButtonContainer"]
+layout_mode = 2
+button_pressed = true
+text = "FACE"
+
+[node name="MusicViz" type="CheckButton" parent="GUI/Pages/Modes/ButtonContainer"]
+layout_mode = 2
+text = "MUSIC VISUALIZER"
+
+[node name="BSOD" parent="GUI/Pages/Modes/ButtonContainer" instance=ExtResource("9_7pvxh")]
+layout_mode = 2
+overlay_texture = ExtResource("10_y3xxt")
+
+[node name="uwu" parent="GUI/Pages/Modes/ButtonContainer" instance=ExtResource("9_7pvxh")]
+layout_mode = 2
+text = "uwu"
+overlay_texture = ExtResource("9_xsp7o")
+
+[node name="TextContainer" type="HBoxContainer" parent="GUI/Pages/Modes/ButtonContainer"]
+layout_mode = 2
+script = ExtResource("10_l5cgh")
+
+[node name="TextEdit" type="TextEdit" parent="GUI/Pages/Modes/ButtonContainer/TextContainer"]
+custom_minimum_size = Vector2(80, 36)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+placeholder_text = "Message..."
+emoji_menu_enabled = false
+wrap_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Pages/Modes/ButtonContainer/TextContainer"]
+layout_mode = 2
+
+[node name="Left" type="CheckButton" parent="GUI/Pages/Modes/ButtonContainer/TextContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "L"
+
+[node name="Right" type="CheckButton" parent="GUI/Pages/Modes/ButtonContainer/TextContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "R"
+
+[node name="Both" type="CheckButton" parent="GUI/Pages/Modes/ButtonContainer/TextContainer"]
+layout_mode = 2
+
 [node name="RoiAdjust" parent="GUI/Pages" instance=ExtResource("5_j287u")]
+visible = false
 layout_mode = 1
 offset_top = 4.0
 
@@ -109,9 +185,78 @@ visible = false
 layout_mode = 1
 
 [node name="HeadRender" parent="." instance=ExtResource("1_j5px3")]
+unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(58, 1)
+
+[node name="OverlayTex" type="TextureRect" parent="HeadRender"]
+visible = false
+z_index = 1
+offset_right = 128.0
+offset_bottom = 32.0
+expand_mode = 1
+stretch_mode = 1
+
+[node name="TextR" type="Control" parent="HeadRender"]
+visible = false
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 32.0
+
+[node name="Label" type="Label" parent="HeadRender/TextR"]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -4.5
+offset_right = 0.5
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_sqa0i")
+theme_override_constants/outline_size = 4
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TextL" type="Control" parent="HeadRender"]
+visible = false
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 32.0
+
+[node name="Label" type="Label" parent="HeadRender/TextL"]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -4.5
+offset_right = 0.5
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_sqa0i")
+theme_override_constants/outline_size = 4
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [connection signal="timeout" from="GUI/Header_Preview/OSCFPSLabel/Timeout" to="GUI/Header_Preview/OSCFPSLabel" method="_on_timeout_timeout"]
 [connection signal="pressed" from="GUI/Header_Preview/NextBtn" to="GUI/Pages" method="_on_next_btn_pressed"]
 [connection signal="pressed" from="GUI/Header_Preview/PrevBtn" to="GUI/Pages" method="_on_prev_btn_pressed"]
+[connection signal="toggled" from="GUI/Pages/Modes/ButtonContainer/Face" to="GUI/Pages/Modes" method="_on_face_toggled"]
+[connection signal="toggled" from="GUI/Pages/Modes/ButtonContainer/MusicViz" to="GUI/Pages/Modes" method="_on_music_viz_toggled"]
+[connection signal="text_changed" from="GUI/Pages/Modes/ButtonContainer/TextContainer/TextEdit" to="GUI/Pages/Modes" method="_on_text_edit_text_changed"]
