@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bsxli57yhsgf3"]
+[gd_scene load_steps=15 format=3 uid="uid://bsxli57yhsgf3"]
 
 [ext_resource type="PackedScene" uid="uid://c8kjavcahcv7l" path="res://scenes/head_render.tscn" id="1_j5px3"]
 [ext_resource type="Script" uid="uid://dt31kliyqy4sv" path="res://scenes/root.gd" id="1_kycxp"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://d13ug4s8nbd3r" path="res://images/uwu.png" id="9_xsp7o"]
 [ext_resource type="Script" uid="uid://dim5tqo2mevgd" path="res://scenes/text_container.gd" id="10_l5cgh"]
 [ext_resource type="Texture2D" uid="uid://30c8bbxrkm3x" path="res://images/bsod.png" id="10_y3xxt"]
+[ext_resource type="PackedScene" uid="uid://djtnjwgmeppt5" path="res://scenes/blackhole.tscn" id="14_vgks2"]
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_kycxp")
@@ -259,6 +260,8 @@ theme_override_constants/outline_size = 4
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="Blackhole" parent="HeadRender" instance=ExtResource("14_vgks2")]
 
 [connection signal="timeout" from="GUI/Header_Preview/OSCFPSLabel/Timeout" to="GUI/Header_Preview/OSCFPSLabel" method="_on_timeout_timeout"]
 [connection signal="pressed" from="GUI/Header_Preview/NextBtn" to="GUI/Pages" method="_on_next_btn_pressed"]
