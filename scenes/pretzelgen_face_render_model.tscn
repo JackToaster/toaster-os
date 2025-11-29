@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dxdhg7xjmpy63"]
+[gd_scene load_steps=15 format=3 uid="uid://dxdhg7xjmpy63"]
 
 [ext_resource type="PackedScene" uid="uid://dki3u7vvb8gru" path="res://models/pretzelgen-face-render-model.blend" id="1_c6tk0"]
 [ext_resource type="Script" uid="uid://ockqpnlwfyo7" path="res://scenes/pretzelgen_face.gd" id="2_4aton"]
+[ext_resource type="Material" uid="uid://3toeqw88fq1c" path="res://material/face-emissive.tres" id="3_cchtm"]
 [ext_resource type="Material" uid="uid://cjidusihnojtl" path="res://material/tongue-emissive.tres" id="4_cchtm"]
+[ext_resource type="Material" uid="uid://b7dhaxtdqsa3a" path="res://material/default-eyes-emissive.tres" id="4_ghmfe"]
 
 [sub_resource type="Animation" id="Animation_4egt6"]
 length = 0.001
@@ -92,6 +94,10 @@ blend_point_2/pos = 0.7
 
 [node name="pretzelgen-face-render-model" instance=ExtResource("1_c6tk0")]
 script = ExtResource("2_4aton")
+
+[node name="face" parent="." index="0"]
+surface_material_override/0 = ExtResource("3_cchtm")
+surface_material_override/1 = ExtResource("4_ghmfe")
 
 [node name="faceL" type="MeshInstance3D" parent="." index="1"]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

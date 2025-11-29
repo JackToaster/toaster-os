@@ -1,6 +1,9 @@
 shader_type canvas_item;
 render_mode unshaded;
 
+uniform sampler2D noise;
+uniform sampler2D bb;
+
 const vec2 iResolution = vec2(64,32);
 
 #define _Size 0.3 //size of BH
@@ -8,16 +11,16 @@ const vec2 iResolution = vec2(64,32);
 #define DISK_END 2.0
 
 
-#define iterations 17
+#define iterations 11
 #define formuparam 0.53
 
 #define volsteps 20
 #define stepsize 0.1
 
 #define tile   0.850
-#define speed  0.010 
+#define speed  0.010
 
-#define brightness 0.0015
+#define brightness 0.004
 #define darkmatter 0.300
 #define distfading 0.730
 #define saturation 0.850
@@ -36,11 +39,11 @@ void CamPolar( out vec3 pos, out vec3 ray, in vec3 origin, in vec2 rotation, in 
 	ray.xy = fragCoord.xy - iResolution.xy*.5;
 	ray.z = iResolution.y*zoom;
 	ray = normalize(ray);
-	
+
 	// rotate ray
 	ray.yz = ray.yz*c.xx + ray.zy*s.zx;
 	ray.xz = ray.xz*c.yy + ray.zx*s.yw;
-	
+
 	// position camera
 	pos = origin - distance*vec3(c.x*s.y,s.z,c.x*c.y);
 }
@@ -48,18 +51,7 @@ void CamPolar( out vec3 pos, out vec3 ray, in vec3 origin, in vec2 rotation, in 
 
 vec3 blackbody( float t )
 {
-    const float h = 6.6e-34; // Planck constant
-    const float k = 1.4e-23; // Boltzmann constant
-    const float c = 3e8;// Speed of light
-
-    vec3 w = vec3( 610.0, 549.0, 468.0 ) / 1e9; // approximate wavelength of primaries
-    
-    // Planck's law https://en.wikipedia.org/wiki/Planck%27s_law
-    
-    vec3 w5 = w*w*w*w*w;    
-    vec3 o = 2.*h*(c*c) / (w5 * (exp(h*c/(w*k*t)) - 1.0));
-
-    return o;
+    return texture(bb, vec2(t / 3000.0, 0.)).rgb;
 }
 
 vec3 disk(vec3 ro, vec3 rd, float itime) {
@@ -67,22 +59,21 @@ vec3 disk(vec3 ro, vec3 rd, float itime) {
     float vv = rd.y;
     vec3 hp = ro - (rd * (ro.y / rd.y));
     float dist = length(hp);
-        
-    float inner_temp = 2500.0;
-    float outer_temp = 1200.0;
-    
+
+    float inner_temp = 3000.0;
+    float outer_temp = 000.0;
+
     float disk_dist = (dist - DISK_START) / (DISK_END - DISK_START);
-    
+
     float disk_a = smoothstep(0., 0.1, disk_dist) - smoothstep(0.9, 1., disk_dist);
-    
+
     float temp = mix(inner_temp, outer_temp, disk_dist);
-    
-    float ang = atan(hp.x,hp.z);
-    temp += sin(ang * 2. + (dist + itime * -0.5) * 30. + sin(ang * 3.) * sin(ang * 5. - dist * 2.) * sin (ang + dist * -12.)) * 10.;
-    
+
+    float ang = atan(hp.x,hp.z) + 3. * itime;
+    temp += texture(noise, vec2(fract(disk_dist * 2.5), fract(1. * ang / PI))).r * 700.0;
     //vec3 rd_col = hp.xyz * vec3(0.5) + vec3(0.5);
-    
-    return blackbody(temp) * disk_a * 0.0000000001;
+
+    return blackbody(temp) * disk_a;
 }
 
 
@@ -93,7 +84,7 @@ vec3 starnest(in vec3 from, in vec3 dir) {
 		vec3 p=from+s*dir*.5;
 		p = abs(vec3(tile)-mod(p,vec3(tile*2.))); // tiling fold
 		float pa,a=pa=0.;
-		for (int i=0; i<iterations; i++) { 
+		for (int i=0; i<iterations; i++) {
 			p=abs(p)/dot(p,p)-formuparam; // the magic formula
 			a+=abs(length(p)-pa); // absolute sum of average change
 			pa=length(p);
@@ -108,7 +99,7 @@ vec3 starnest(in vec3 from, in vec3 dir) {
 		s+=stepsize;
 	}
 	v=mix(vec3(length(v)),v,saturation); //color adjust
-	
+
 	return v * 0.01;
 }
 
@@ -123,7 +114,7 @@ void fragment() {
 	vec3 ro, rd;
 
     vec3 cam_origin = vec3(0.);
-    
+
     vec2 camRot = vec2(-0.2 + 0.2 * cos(TIME * 0.3), 0.9 + 0.3 * sin(TIME * 0.5));
 
     CamPolar(ro, rd,
@@ -131,9 +122,9 @@ void fragment() {
         camRot, // Rotation
         3., // Distance
         0.8, //Zoom
-        UV * iResolution);
-    
-    
+        UV * iResolution + vec2(10.,5.));
+
+
     vec3 pos = ro;
     vec3 ray = rd;
     int nsteps = 0;
@@ -154,31 +145,30 @@ void fragment() {
 
         if(stepVec.y / pos.y < -1.) {
             vec3 diskCol = disk(pos, stepVec, TIME);
-            //COLOR.rgb += blackbody(3000.0);
+            COLOR.rgb += diskCol;
 			//break;
         }
 
         pos += stepVec;
-        
+
         nsteps += 1;
         float dist2 = length(pos);
 
         if(dist2 < _Size) //ray sucked in to BH
         {
-            COLOR = vec4(0.);
 			break;
         }
 
         else if(dist2 > _Size * 1000.) //ray escaped BH
-        {                   
+        {
             vec3 bg = starnest (vec3(20.54567, 41.234,-13.4235), ray);
-            COLOR.rgb += bg;       
+            COLOR.rgb += bg * 2.;
             break;
         }
     }
 	//vec3 bg = starnest (vec3(20.54567, 41.234,-13.4235), ray);
-    //COLOR.rgb = bg;       
-        
+    //COLOR.rgb = bg;
+
     //COLOR = vec4(0., 1., 0., 1.);
 }
 

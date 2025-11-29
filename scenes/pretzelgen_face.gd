@@ -13,6 +13,8 @@ extends Node3D
 func _ready():
 	# copy face mesh to opposite face side
 	$faceL.mesh = $face.mesh
+	for i in range($face.get_surface_override_material_count()):
+		$faceL.set_surface_override_material(i, $face.get_surface_override_material(i))
 
 func _process(_delta: float) -> void:
 	var t = Time.get_ticks_msec() / 1000.0
@@ -89,3 +91,28 @@ func _process(_delta: float) -> void:
 	
 	$AnimationPlayer/AnimationTree.set("parameters/blend_position", tongue_blendspace)
 	$Tongue.set_blend_shape_value(tongue_out_id, tongue_out)
+
+func _face_mat() -> StandardMaterial3D :
+	return $face.get_surface_override_material(0)
+
+func _eye_mat() -> StandardMaterial3D :
+	return $face.get_surface_override_material(1)
+
+func set_face_color(color: Color):
+	_face_mat().albedo_color = color
+
+func set_eye_color(color: Color):
+	_eye_mat().albedo_color = color
+
+var eye_col: Color = Color.WHITE
+var eye_showing: bool = true
+func set_eye_visible(vizible: bool):
+	if vizible:
+		if not eye_showing:
+			set_eye_color(eye_col)
+		eye_showing = true
+	else:
+		if eye_showing:
+			eye_col = _eye_mat().albedo_color
+			set_eye_color(Color.BLACK)
+			eye_showing = false

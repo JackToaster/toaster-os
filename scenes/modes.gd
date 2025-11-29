@@ -9,6 +9,12 @@ func _ready() -> void:
 			var child_btn: CheckButton = child
 			child_btn.button_group = overlay_toggle_group
 			child_btn.toggled.connect(_overlay_toggled)
+	visibility_changed.connect(_update_brightness_slider)
+
+func _update_brightness_slider():
+	# make brightness slider initialize correctly
+	var brightness = 1.0 - %HeadRender/Attenuate.color.a
+	$ButtonContainer/BrightnessContainer/HSlider.value = brightness
 	
 
 func _on_face_toggled(toggled_on: bool) -> void:
@@ -58,3 +64,32 @@ func _on_bad_apple_toggled(toggled_on: bool) -> void:
 	#else:
 		#if doom_inst != null:
 			#doom_inst.queue_free()
+
+var blackhole_eye = preload("res://scenes/blackhole.tscn")
+var blackhole_eye_inst = null
+func _on_blackhole_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		%"HeadRender/Head/Content/pretzelgen-face-render-model".set_eye_visible(false)
+		blackhole_eye_inst = blackhole_eye.instantiate()
+		%HeadRender.add_child(blackhole_eye_inst)
+	else:
+		%"HeadRender/Head/Content/pretzelgen-face-render-model".set_eye_visible(true)
+		if blackhole_eye_inst != null:
+			blackhole_eye_inst.queue_free()
+
+
+func _on_dimmer_pressed() -> void:
+	var brightness = 1.0 - %HeadRender/Attenuate.color.a
+	brightness *= 0.66
+	$ButtonContainer/BrightnessContainer/HSlider.value = brightness
+	var alpha = 1.0 - brightness
+	%HeadRender/Attenuate.color.a = alpha
+
+func _on_brighter_pressed() -> void:
+	var brightness = 1.0 - %HeadRender/Attenuate.color.a
+	brightness *= 1.5
+	if brightness > 1.0:
+		brightness = 1.0
+	$ButtonContainer/BrightnessContainer/HSlider.value = brightness
+	var alpha = 1.0 - brightness
+	%HeadRender/Attenuate.color.a = alpha

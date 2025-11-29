@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bsxli57yhsgf3"]
+[gd_scene load_steps=16 format=3 uid="uid://bsxli57yhsgf3"]
 
 [ext_resource type="PackedScene" uid="uid://c8kjavcahcv7l" path="res://scenes/head_render.tscn" id="1_j5px3"]
 [ext_resource type="Script" uid="uid://dt31kliyqy4sv" path="res://scenes/root.gd" id="1_kycxp"]
@@ -13,7 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://d13ug4s8nbd3r" path="res://images/uwu.png" id="9_xsp7o"]
 [ext_resource type="Script" uid="uid://dim5tqo2mevgd" path="res://scenes/text_container.gd" id="10_l5cgh"]
 [ext_resource type="Texture2D" uid="uid://30c8bbxrkm3x" path="res://images/bsod.png" id="10_y3xxt"]
-[ext_resource type="PackedScene" uid="uid://djtnjwgmeppt5" path="res://scenes/blackhole.tscn" id="14_vgks2"]
+[ext_resource type="Texture2D" uid="uid://x8rm7pbx0ek7" path="res://theme/waste_no_space/textures/icons/decr_icon.tres" id="11_dylgi"]
+[ext_resource type="Texture2D" uid="uid://ei25y5jjqx55" path="res://theme/waste_no_space/textures/icons/incr_icon.tres" id="12_jrhyn"]
 
 [node name="root" type="Node2D"]
 script = ExtResource("1_kycxp")
@@ -26,6 +27,17 @@ anchors_preset = 0
 offset_right = 240.0
 offset_bottom = 240.0
 theme = ExtResource("1_sqa0i")
+
+[node name="ColorRect" type="ColorRect" parent="GUI"]
+z_index = -100
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.52544487, 0.2126314, 0.16052088, 1)
+metadata/_edit_lock_ = true
 
 [node name="Header_Preview" type="Control" parent="GUI"]
 layout_mode = 1
@@ -108,6 +120,7 @@ grow_vertical = 2
 script = ExtResource("4_j287u")
 
 [node name="Modes" type="Control" parent="GUI/Pages"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -117,6 +130,7 @@ grow_vertical = 2
 script = ExtResource("8_3hfy5")
 
 [node name="ButtonContainer" type="VBoxContainer" parent="GUI/Pages/Modes"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -181,6 +195,122 @@ overlay_texture = ExtResource("9_xsp7o")
 [node name="BadApple" type="CheckButton" parent="GUI/Pages/Modes/ButtonContainer"]
 layout_mode = 2
 text = "BAD APPLE!!"
+
+[node name="BrightnessContainer" type="HBoxContainer" parent="GUI/Pages/Modes/ButtonContainer"]
+layout_mode = 2
+
+[node name="Dimmer" type="Button" parent="GUI/Pages/Modes/ButtonContainer/BrightnessContainer"]
+layout_mode = 2
+icon = ExtResource("11_dylgi")
+
+[node name="HSlider" type="HSlider" parent="GUI/Pages/Modes/ButtonContainer/BrightnessContainer"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_sqa0i")
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Label" type="Label" parent="GUI/Pages/Modes/ButtonContainer/BrightnessContainer/HSlider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -11.0
+offset_right = 24.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "BRIGHTNESS"
+
+[node name="Brighter" type="Button" parent="GUI/Pages/Modes/ButtonContainer/BrightnessContainer"]
+layout_mode = 2
+text = "	"
+icon = ExtResource("12_jrhyn")
+
+[node name="Modes2" type="Control" parent="GUI/Pages"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_3hfy5")
+
+[node name="ButtonContainer" type="VBoxContainer" parent="GUI/Pages/Modes2"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -9.0
+offset_right = 48.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Face" type="CheckButton" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+button_pressed = true
+text = "FACE"
+
+[node name="HSeparator2" type="HSeparator" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+text = "-- Eyes --"
+horizontal_alignment = 1
+
+[node name="Blackhole" type="CheckButton" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+text = "BLACK HOLE"
+
+[node name="HSeparator" type="HSeparator" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+
+[node name="BrightnessContainer" type="HBoxContainer" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+
+[node name="Dimmer" type="Button" parent="GUI/Pages/Modes2/ButtonContainer/BrightnessContainer"]
+layout_mode = 2
+icon = ExtResource("11_dylgi")
+
+[node name="HSlider" type="HSlider" parent="GUI/Pages/Modes2/ButtonContainer/BrightnessContainer"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_sqa0i")
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Label" type="Label" parent="GUI/Pages/Modes2/ButtonContainer/BrightnessContainer/HSlider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -11.0
+offset_right = 24.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "BRIGHTNESS"
+
+[node name="Brighter" type="Button" parent="GUI/Pages/Modes2/ButtonContainer/BrightnessContainer"]
+layout_mode = 2
+text = "	"
+icon = ExtResource("12_jrhyn")
 
 [node name="RoiAdjust" parent="GUI/Pages" instance=ExtResource("5_j287u")]
 visible = false
@@ -261,7 +391,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Blackhole" parent="HeadRender" instance=ExtResource("14_vgks2")]
+[node name="Attenuate" type="ColorRect" parent="HeadRender"]
+z_index = 100
+offset_right = 128.0
+offset_bottom = 32.0
+color = Color(0, 0, 0, 0)
 
 [connection signal="timeout" from="GUI/Header_Preview/OSCFPSLabel/Timeout" to="GUI/Header_Preview/OSCFPSLabel" method="_on_timeout_timeout"]
 [connection signal="pressed" from="GUI/Header_Preview/NextBtn" to="GUI/Pages" method="_on_next_btn_pressed"]
@@ -270,3 +404,9 @@ autowrap_mode = 3
 [connection signal="text_changed" from="GUI/Pages/Modes/ButtonContainer/TextContainer/TextEdit" to="GUI/Pages/Modes" method="_on_text_edit_text_changed"]
 [connection signal="toggled" from="GUI/Pages/Modes/ButtonContainer/MusicViz" to="GUI/Pages/Modes" method="_on_music_viz_toggled"]
 [connection signal="toggled" from="GUI/Pages/Modes/ButtonContainer/BadApple" to="GUI/Pages/Modes" method="_on_bad_apple_toggled"]
+[connection signal="pressed" from="GUI/Pages/Modes/ButtonContainer/BrightnessContainer/Dimmer" to="GUI/Pages/Modes" method="_on_dimmer_pressed"]
+[connection signal="pressed" from="GUI/Pages/Modes/ButtonContainer/BrightnessContainer/Brighter" to="GUI/Pages/Modes" method="_on_brighter_pressed"]
+[connection signal="toggled" from="GUI/Pages/Modes2/ButtonContainer/Face" to="GUI/Pages/Modes2" method="_on_face_toggled"]
+[connection signal="toggled" from="GUI/Pages/Modes2/ButtonContainer/Blackhole" to="GUI/Pages/Modes2" method="_on_blackhole_toggled"]
+[connection signal="pressed" from="GUI/Pages/Modes2/ButtonContainer/BrightnessContainer/Dimmer" to="GUI/Pages/Modes2" method="_on_dimmer_pressed"]
+[connection signal="pressed" from="GUI/Pages/Modes2/ButtonContainer/BrightnessContainer/Brighter" to="GUI/Pages/Modes2" method="_on_brighter_pressed"]
