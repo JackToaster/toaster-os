@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://qna1b6hlva2u"]
+
+[ext_resource type="VideoStream" uid="uid://culqlh6kkck8g" path="res://images/badapple3264.ogv" id="1_ble53"]
+
+[node name="BadApple" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 32.0
+stream = ExtResource("1_ble53")
+volume_db = -80.0
+autoplay = true
+bus = &"microphone"
+
+[node name="VideoStreamPlayer2" type="VideoStreamPlayer" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 128.0
+offset_bottom = 32.0
+stream = ExtResource("1_ble53")
+volume_db = -25.96
+autoplay = true
+bus = &"microphone"

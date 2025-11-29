@@ -34,3 +34,27 @@ func _overlay_toggled(toggled_on: bool):
 		%HeadRender/OverlayTex.visible = true
 	else:
 		%HeadRender/OverlayTex.visible = false
+
+
+var badapple = preload("res://scenes/badapple.tscn")
+var badapple_inst = null
+func _on_bad_apple_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		badapple_inst = badapple.instantiate()
+		%HeadRender.add_child(badapple_inst)
+	else:
+		if badapple_inst != null:
+			badapple_inst.queue_free()
+
+
+# WIP Doom stuff - needs an ARM64 build of godot-wasm, can't be bothered now.
+#
+#var doom = preload("res://scenes/doom.tscn")
+#var doom_inst = null
+#func _on_doom_toggled(toggled_on: bool) -> void:
+	#if toggled_on:
+		#doom_inst = doom.instantiate()
+		#%HeadRender.add_child(doom_inst)
+	#else:
+		#if doom_inst != null:
+			#doom_inst.queue_free()
