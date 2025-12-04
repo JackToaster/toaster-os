@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxdhg7xjmpy63"]
+[gd_scene load_steps=19 format=3 uid="uid://dxdhg7xjmpy63"]
 
 [ext_resource type="PackedScene" uid="uid://dki3u7vvb8gru" path="res://models/pretzelgen-face-render-model.blend" id="1_c6tk0"]
 [ext_resource type="Script" uid="uid://ockqpnlwfyo7" path="res://scenes/pretzelgen_face.gd" id="2_4aton"]
 [ext_resource type="Material" uid="uid://3toeqw88fq1c" path="res://material/face-emissive.tres" id="3_cchtm"]
 [ext_resource type="Material" uid="uid://cjidusihnojtl" path="res://material/tongue-emissive.tres" id="4_cchtm"]
 [ext_resource type="Material" uid="uid://b7dhaxtdqsa3a" path="res://material/default-eyes-emissive.tres" id="4_ghmfe"]
+[ext_resource type="Material" uid="uid://du604mnssth7r" path="res://material/pupil-transmissive.tres" id="5_ghmfe"]
 
 [sub_resource type="Animation" id="Animation_4egt6"]
 length = 0.001
@@ -92,12 +93,50 @@ blend_point_1/pos = -0.7
 blend_point_2/node = SubResource("AnimationNodeAnimation_brwrk")
 blend_point_2/pos = 0.7
 
+[sub_resource type="Animation" id="Animation_5bjet"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:combined_blink")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_30t8v"]
+resource_name = "blink"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:combined_blink")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5bjet"]
+_data = {
+&"RESET": SubResource("Animation_5bjet"),
+&"blink": SubResource("Animation_30t8v")
+}
+
 [node name="pretzelgen-face-render-model" instance=ExtResource("1_c6tk0")]
 script = ExtResource("2_4aton")
 
 [node name="face" parent="." index="0"]
 surface_material_override/0 = ExtResource("3_cchtm")
 surface_material_override/1 = ExtResource("4_ghmfe")
+surface_material_override/2 = ExtResource("5_ghmfe")
 
 [node name="faceL" type="MeshInstance3D" parent="." index="1"]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -121,3 +160,12 @@ root_node = NodePath("../..")
 tree_root = SubResource("AnimationNodeBlendSpace1D_dp3ki")
 anim_player = NodePath("..")
 parameters/blend_position = 0.0
+
+[node name="Blink" type="AnimationPlayer" parent="." index="7"]
+libraries = {
+&"": SubResource("AnimationLibrary_5bjet")
+}
+
+[node name="BlinkTimer" type="Timer" parent="." index="8"]
+wait_time = 4.0
+one_shot = true

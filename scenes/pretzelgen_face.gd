@@ -1,5 +1,6 @@
 extends Node3D
 
+# Whole face
 @onready var smile_id = $face.find_blend_shape_by_name("smile")
 @onready var frown_id = $face.find_blend_shape_by_name("frown")
 @onready var mouth_open_id = $face.find_blend_shape_by_name("mouth open")
@@ -7,14 +8,37 @@ extends Node3D
 @onready var pucker_id = $face.find_blend_shape_by_name("mouth pucker")
 @onready var funnel_id = $face.find_blend_shape_by_name("mouth funnel")
 
-
+# Tongue
 @onready var tongue_out_id = $Tongue.find_blend_shape_by_name("out")
+
+# Eye look/blink
+@onready var eye_forward_id = $face.find_blend_shape_by_name("look forward")
+@onready var eye_blink_id = $face.find_blend_shape_by_name("blink")
+
+@export var combined_blink: float = 0.0:
+	set(val):
+		$face.set_blend_shape_value(eye_blink_id, val)
+		$faceL.set_blend_shape_value(eye_blink_id, val)
+
+@export var auto_blink: bool:
+	set(val):
+		if val:
+			$BlinkTimer.start(randf_range(0.5, 6.0))
+		else:
+			$BlinkTimer.stop()
 
 func _ready():
 	# copy face mesh to opposite face side
 	$faceL.mesh = $face.mesh
 	for i in range($face.get_surface_override_material_count()):
 		$faceL.set_surface_override_material(i, $face.get_surface_override_material(i))
+	
+	$BlinkTimer.timeout.connect(_auto_blink)
+	auto_blink = true
+
+func _auto_blink():
+	$Blink.play("blink")
+	$BlinkTimer.start(randf_range(0.5, 5.0))
 
 func _process(_delta: float) -> void:
 	var t = Time.get_ticks_msec() / 1000.0
@@ -91,6 +115,12 @@ func _process(_delta: float) -> void:
 	
 	$AnimationPlayer/AnimationTree.set("parameters/blend_position", tongue_blendspace)
 	$Tongue.set_blend_shape_value(tongue_out_id, tongue_out)
+	
+	# TODO Eyes OSC parameters
+	$face.set_blend_shape_value(eye_forward_id, sin(t))
+	$faceL.set_blend_shape_value(eye_forward_id, -sin(t))
+
+
 
 func _face_mat() -> StandardMaterial3D :
 	return $face.get_surface_override_material(0)
