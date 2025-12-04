@@ -93,3 +93,7 @@ func _on_brighter_pressed() -> void:
 	$ButtonContainer/BrightnessContainer/HSlider.value = brightness
 	var alpha = 1.0 - brightness
 	%HeadRender/Attenuate.color.a = alpha
+
+
+func _on_autoblink_toggled(toggled_on: bool) -> void:
+	%"HeadRender/Head/Content/pretzelgen-face-render-model".auto_blink = toggled_on
