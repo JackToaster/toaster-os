@@ -117,8 +117,8 @@ func _process(_delta: float) -> void:
 	$Tongue.set_blend_shape_value(tongue_out_id, tongue_out)
 	
 	# TODO Eyes OSC parameters
-	$face.set_blend_shape_value(eye_forward_id, sin(t))
-	$faceL.set_blend_shape_value(eye_forward_id, -sin(t))
+	#$face.set_blend_shape_value(eye_forward_id, sin(t))
+	#$faceL.set_blend_shape_value(eye_forward_id, -sin(t))
 
 
 
