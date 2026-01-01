@@ -48,7 +48,7 @@ void CamPolar( out vec3 pos, out vec3 ray, in vec3 origin, in vec2 rotation, in 
 	pos = origin - distance*vec3(c.x*s.y,s.z,c.x*c.y);
 }
 
-
+// todo blackbody doesn't work here???
 vec3 blackbody( float t )
 {
     return texture(bb, vec2(t / 3000.0, 0.)).rgb;
