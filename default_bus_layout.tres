@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://dlcd7ucm5ubaw"]
+[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://dlcd7ucm5ubaw"]
 
 [sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_j3pel"]
 resource_name = "Amplify"
@@ -6,6 +6,27 @@ volume_db = 20.37
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_j3pel"]
 resource_name = "SpectrumAnalyzer"
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_j3pel"]
+resource_name = "PitchShift"
+pitch_scale = 1.07
+fft_size = 0
+
+[sub_resource type="AudioEffectDelay" id="AudioEffectDelay_j3pel"]
+resource_name = "Delay"
+tap1_active = false
+tap1_delay_ms = 25.0
+tap2_active = false
+tap2_delay_ms = 55.0
+feedback_active = true
+feedback_delay_ms = 10.0
+feedback_level_db = -2.2
+feedback_lowpass = 4807.0
+
+[sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_j3pel"]
+resource_name = "HighPassFilter"
+cutoff_hz = 200.0
+db = 1
 
 [resource]
 bus/1/name = &"microphone"
@@ -18,3 +39,15 @@ bus/1/effect/0/effect = SubResource("AudioEffectAmplify_j3pel")
 bus/1/effect/0/enabled = true
 bus/1/effect/1/effect = SubResource("AudioEffectSpectrumAnalyzer_j3pel")
 bus/1/effect/1/enabled = true
+bus/2/name = &"voice"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectPitchShift_j3pel")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectDelay_j3pel")
+bus/2/effect/1/enabled = true
+bus/2/effect/2/effect = SubResource("AudioEffectHighPassFilter_j3pel")
+bus/2/effect/2/enabled = true
