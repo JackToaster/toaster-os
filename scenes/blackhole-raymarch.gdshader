@@ -11,7 +11,7 @@ const vec2 iResolution = vec2(64,32);
 #define DISK_END 2.0
 
 
-#define iterations 11
+#define iterations 13
 #define formuparam 0.53
 
 #define volsteps 20
@@ -100,7 +100,7 @@ vec3 starnest(in vec3 from, in vec3 dir) {
 	}
 	v=mix(vec3(length(v)),v,saturation); //color adjust
 
-	return v * 0.01;
+	return v * 0.02 - 0.5;
 }
 
 
@@ -162,7 +162,7 @@ void fragment() {
         else if(dist2 > _Size * 1000.) //ray escaped BH
         {
             vec3 bg = starnest (vec3(20.54567, 41.234,-13.4235), ray);
-            COLOR.rgb += bg * 2.;
+            COLOR.rgb += bg;
             break;
         }
     }

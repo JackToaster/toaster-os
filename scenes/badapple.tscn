@@ -13,9 +13,8 @@ layout_mode = 0
 offset_right = 64.0
 offset_bottom = 32.0
 stream = ExtResource("1_ble53")
-volume_db = -80.0
+volume_db = -10.0
 autoplay = true
-bus = &"microphone"
 
 [node name="VideoStreamPlayer2" type="VideoStreamPlayer" parent="."]
 layout_mode = 0

@@ -17,7 +17,7 @@ var magnitudes = []
 
 
 func _ready():
-	spectrum_instance = AudioServer.get_bus_effect_instance(1, 1)  # Bus 1, Effect 0
+	spectrum_instance = AudioServer.get_bus_effect_instance(1, 1)  # Bus 1, Effect 1
 	create_bars()
 	audio_player.play()
 

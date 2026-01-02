@@ -10,6 +10,10 @@ func _ready() -> void:
 			child_btn.button_group = overlay_toggle_group
 			child_btn.toggled.connect(_overlay_toggled)
 	visibility_changed.connect(_update_brightness_slider)
+	
+	$ButtonContainer/BrightnessContainer/dimmer.connect("pressed", _on_dimmer_pressed)
+	$ButtonContainer/BrightnessContainer/brighter.connect("pressed", _on_brighter_pressed)
+	
 
 func _update_brightness_slider():
 	# make brightness slider initialize correctly
@@ -67,7 +71,7 @@ func _on_bad_apple_toggled(toggled_on: bool) -> void:
 
 var blackhole_eye = preload("res://scenes/blackhole.tscn")
 var blackhole_eye_inst = null
-func _on_blackhole_toggled(toggled_on: bool) -> void:
+func _on_black_hole_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		%"HeadRender/Head/Content/pretzelgen-face-render-model".set_eye_visible(false)
 		blackhole_eye_inst = blackhole_eye.instantiate()
@@ -97,3 +101,15 @@ func _on_brighter_pressed() -> void:
 
 func _on_autoblink_toggled(toggled_on: bool) -> void:
 	%"HeadRender/Head/Content/pretzelgen-face-render-model".auto_blink = toggled_on
+
+@onready var pitch_effect: AudioEffectPitchShift = AudioServer.get_bus_effect(2,0)
+func _on_pitch_container_changed(value: float) -> void:
+	pitch_effect.pitch_scale = 1.0 + value
+
+@onready var delay_effect: AudioEffectDelay = AudioServer.get_bus_effect(2,1)
+func _on_tone_container_changed(value: float) -> void:
+	delay_effect.feedback_level_db = lerp(-12.0, -0.5, pow(value, 0.3))
+
+
+func _on_volume_container_changed(value: float) -> void:
+	%VoiceChanger.volume_db = lerp(-30.0, 0.0, value)

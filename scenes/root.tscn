@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bsxli57yhsgf3"]
+[gd_scene load_steps=17 format=3 uid="uid://bsxli57yhsgf3"]
 
 [ext_resource type="PackedScene" uid="uid://c8kjavcahcv7l" path="res://scenes/head_render.tscn" id="1_j5px3"]
 [ext_resource type="Script" uid="uid://dt31kliyqy4sv" path="res://scenes/root.gd" id="1_kycxp"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://d13ug4s8nbd3r" path="res://images/uwu.png" id="9_xsp7o"]
 [ext_resource type="Script" uid="uid://dim5tqo2mevgd" path="res://scenes/text_container.gd" id="10_l5cgh"]
 [ext_resource type="Texture2D" uid="uid://30c8bbxrkm3x" path="res://images/bsod.png" id="10_y3xxt"]
+[ext_resource type="PackedScene" uid="uid://dnevppd00h1gv" path="res://scenes/brightness_slider.tscn" id="11_vgks2"]
+[ext_resource type="Script" uid="uid://tsddw51neqxq" path="res://scenes/button_slider.gd" id="12_dylgi"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_l5cgh"]
 
@@ -109,6 +111,7 @@ grow_vertical = 2
 script = ExtResource("4_j287u")
 
 [node name="Modes" type="Control" parent="GUI/Pages"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -182,6 +185,114 @@ overlay_texture = ExtResource("9_xsp7o")
 [node name="BadApple" type="CheckButton" parent="GUI/Pages/Modes/ButtonContainer"]
 layout_mode = 2
 text = "BAD APPLE!!"
+
+[node name="HSeparator2" type="HSeparator" parent="GUI/Pages/Modes/ButtonContainer"]
+layout_mode = 2
+
+[node name="BrightnessContainer" parent="GUI/Pages/Modes/ButtonContainer" instance=ExtResource("11_vgks2")]
+layout_mode = 2
+
+[node name="Modes2" type="Control" parent="GUI/Pages"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_3hfy5")
+
+[node name="ButtonContainer" type="VBoxContainer" parent="GUI/Pages/Modes2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -9.0
+offset_right = 48.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Face" type="CheckButton" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+button_pressed = true
+text = "FACE"
+
+[node name="AutoBlink" type="CheckButton" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+text = "AUTO BLINK"
+
+[node name="BlackHole" type="CheckButton" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+text = "SPAAAAAAAACE"
+
+[node name="HSeparator" type="HSeparator" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+
+[node name="BrightnessContainer" parent="GUI/Pages/Modes2/ButtonContainer" instance=ExtResource("11_vgks2")]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+
+[node name="VoiceControls" type="HBoxContainer" parent="GUI/Pages/Modes2/ButtonContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="GUI/Pages/Modes2/ButtonContainer/VoiceControls"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/Pages/Modes2/ButtonContainer/VoiceControls/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = 30.0
+offset_right = 55.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5707964
+text = "VOICE CHANGER"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Pages/Modes2/ButtonContainer/VoiceControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VolumeContainer" parent="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer" instance=ExtResource("11_vgks2")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("12_dylgi")
+
+[node name="Label" parent="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer/VolumeContainer/HSlider" index="0"]
+text = "VOLUME"
+
+[node name="ToneContainer" parent="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer" instance=ExtResource("11_vgks2")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("12_dylgi")
+
+[node name="HSlider" parent="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer/ToneContainer" index="1"]
+value = 0.5
+
+[node name="Label" parent="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer/ToneContainer/HSlider" index="0"]
+text = "TONE"
+
+[node name="PitchContainer" parent="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer" instance=ExtResource("11_vgks2")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("12_dylgi")
+
+[node name="HSlider" parent="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer/PitchContainer" index="1"]
+value = 0.1
+
+[node name="Label" parent="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer/PitchContainer/HSlider" index="0"]
+text = "PITCH"
 
 [node name="RoiAdjust" parent="GUI/Pages" instance=ExtResource("5_j287u")]
 visible = false
@@ -262,7 +373,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="Attenuate" type="ColorRect" parent="HeadRender"]
+offset_right = 128.0
+offset_bottom = 32.0
+color = Color(0, 0, 0, 0)
+
 [node name="VoiceChanger" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamMicrophone_l5cgh")
 autoplay = true
 bus = &"voice"
@@ -274,3 +391,13 @@ bus = &"voice"
 [connection signal="text_changed" from="GUI/Pages/Modes/ButtonContainer/TextContainer/TextEdit" to="GUI/Pages/Modes" method="_on_text_edit_text_changed"]
 [connection signal="toggled" from="GUI/Pages/Modes/ButtonContainer/MusicViz" to="GUI/Pages/Modes" method="_on_music_viz_toggled"]
 [connection signal="toggled" from="GUI/Pages/Modes/ButtonContainer/BadApple" to="GUI/Pages/Modes" method="_on_bad_apple_toggled"]
+[connection signal="toggled" from="GUI/Pages/Modes2/ButtonContainer/Face" to="GUI/Pages/Modes2" method="_on_face_toggled"]
+[connection signal="toggled" from="GUI/Pages/Modes2/ButtonContainer/AutoBlink" to="GUI/Pages/Modes" method="_on_autoblink_toggled"]
+[connection signal="toggled" from="GUI/Pages/Modes2/ButtonContainer/BlackHole" to="GUI/Pages/Modes2" method="_on_black_hole_toggled"]
+[connection signal="changed" from="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer/VolumeContainer" to="GUI/Pages/Modes2" method="_on_volume_container_changed"]
+[connection signal="changed" from="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer/ToneContainer" to="GUI/Pages/Modes2" method="_on_tone_container_changed"]
+[connection signal="changed" from="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer/PitchContainer" to="GUI/Pages/Modes2" method="_on_pitch_container_changed"]
+
+[editable path="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer/VolumeContainer"]
+[editable path="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer/ToneContainer"]
+[editable path="GUI/Pages/Modes2/ButtonContainer/VoiceControls/VBoxContainer/PitchContainer"]
